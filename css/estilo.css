@@ -1,0 +1,63 @@
+.icono1{
+    width: 15px;
+    height: 15px;
+}
+
+.icono2{
+    width: 25px;
+    height: 15px;
+}
+
+.Centrar {
+  position: relative;
+  top: 50%;
+  left: 40%;
+  width: 400px;
+  padding: 40px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.userimg{
+  width: 100px; height: 100px;
+  margin-left: 90px;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed; 
+    z-index: 1; 
+    top: 0; 
+    left: 0;
+    background-color: rgba(17, 17, 17, 0.712); 
+    overflow-x: hidden; 
+    padding-top: 60px; 
+    transition: 0.5s; 
+  }
+  
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: darkgray;
+    display: block;
+    transition: 0.3s;
+  }
+  
+.sidenav a:hover {
+    color: #f1f1f1;
+  }
+  
+.sidenav .btncerrar {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+  }
