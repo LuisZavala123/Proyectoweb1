@@ -13,92 +13,10 @@
         include "nav.php";
     ?> 
     
-    
-<!--BODY-->
-<div class="row">
-    <div class="col-sm-3">
-        <div class="card rounded" style="width: 18rem;">
-            <img class="card-img-top rounded" src="img/libro.png" alt="imagen">
-            <div class="card-body bg-success rounded">
-              <h5 class="card-title text-white">Libro de Ejemplo</h5>
-              <p class="card-text ">este es el libro de ejemplo que se cambiara despues</p>
-              <a href="Libro.html" class="btn btn-info text-white rounded">Mostrar</a>
-            </div>
-          </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="card rounded" style="width: 18rem;">
-            <img class="card-img-top rounded" src="img/libro.png" alt="imagen">
-            <div class="card-body bg-success rounded">
-              <h5 class="card-title text-white">Libro de Ejemplo</h5>
-              <p class="card-text ">este es el libro de ejemplo que se cambiara despues</p>
-              <a href="Libro.html" class="btn btn-info text-white rounded">Mostrar</a>
-            </div>
-          </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="card rounded" style="width: 18rem;">
-            <img class="card-img-top rounded" src="img/libro.png" alt="imagen">
-            <div class="card-body bg-success rounded">
-              <h5 class="card-title text-white">Libro de Ejemplo</h5>
-              <p class="card-text ">este es el libro de ejemplo que se cambiara despues</p>
-              <a href="Libro.html" class="btn btn-info text-white rounded">Mostrar</a>
-            </div>
-          </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="card rounded" style="width: 18rem;">
-            <img class="card-img-top rounded" src="img/libro.png" alt="imagen">
-            <div class="card-body bg-success rounded">
-              <h5 class="card-title text-white">Libro de Ejemplo</h5>
-              <p class="card-text ">este es el libro de ejemplo que se cambiara despues</p>
-              <a href="Libro.html" class="btn btn-info text-white rounded">Mostrar</a>
-            </div>
-          </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-3">
-        <div class="card rounded" style="width: 18rem;">
-            <img class="card-img-top rounded" src="img/libro.png" alt="imagen">
-            <div class="card-body bg-success rounded">
-              <h5 class="card-title text-white">Libro de Ejemplo</h5>
-              <p class="card-text ">este es el libro de ejemplo que se cambiara despues</p>
-              <a href="Libro.html" class="btn btn-info text-white rounded">Mostrar</a>
-            </div>
-          </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="card rounded" style="width: 18rem;">
-            <img class="card-img-top rounded" src="img/libro.png" alt="imagen">
-            <div class="card-body bg-success rounded">
-              <h5 class="card-title text-white">Libro de Ejemplo</h5>
-              <p class="card-text ">este es el libro de ejemplo que se cambiara despues</p>
-              <a href="Libro.html" class="btn btn-info text-white rounded">Mostrar</a>
-            </div>
-          </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="card rounded" style="width: 18rem;">
-            <img class="card-img-top rounded" src="img/libro.png" alt="imagen">
-            <div class="card-body bg-success rounded">
-              <h5 class="card-title text-white">Libro de Ejemplo</h5>
-              <p class="card-text ">este es el libro de ejemplo que se cambiara despues</p>
-              <a href="Libro.html" class="btn btn-info text-white rounded">Mostrar</a>
-            </div>
-          </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="card rounded" style="width: 18rem;">
-            <img class="card-img-top rounded" src="img/libro.png" alt="imagen">
-            <div class="card-body bg-success rounded">
-              <h5 class="card-title text-white">Libro de Ejemplo</h5>
-              <p class="card-text ">este es el libro de ejemplo que se cambiara despues</p>
-              <a href="Libro.html" class="btn btn-info text-white rounded">Mostrar</a>
-            </div>
-          </div>
-    </div>
-</div>
+  <div id="cuerpo">
+
+
+  </div>
 </body>
 
 

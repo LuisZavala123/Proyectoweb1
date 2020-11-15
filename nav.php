@@ -2,9 +2,9 @@
 <header>
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="btncerrar" onclick="closeNav()">&times;</a>
-            <a href="index.html">Inicio</a>
-            <a href="Carrito.html">Carrito</a>
-            <a href="perfil.html">Cuenta</a>
+            <a href="index.php">Inicio</a>
+            <a href="Carrito.php">Carrito</a>
+            <a href="perfil.php">Cuenta</a>
           </div>
         <nav class="navbar navbar-expand-lg navbar-light bg-success ">
             <button class="btn btn-success" type="submit"><img class="icono1" src="img/menu.png" alt="" onclick="openNav()"></button>

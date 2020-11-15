@@ -18,9 +18,20 @@ $(document).ready(function(){
         localStorage.removeItem('Carrito');
 
         localStorage.setItem("Pagos",JSON.stringify(pagos));
-            $('#tblCompra').DataTable().clear().rows.add(obtenerCarrito()).draw();
+        $('#tblCompra').DataTable().clear().rows.add(obtenerCarrito()).draw();
     });
 });
+
+function Eliminar(id){
+  let carrito = obtenerCarrito();
+        for (let index = 0; index < carrito.length; index++) {
+            if (carrito[index].id==id) {
+                carrito.splice(index,index);
+            }
+        }
+        localStorage.setItem("Carrito",JSON.stringify(carrito));
+        $('#tblCompra').DataTable().clear().rows.add(obtenerCarrito()).draw();
+}
 
 function obtenerCarrito(){
     let lista=[];
@@ -59,7 +70,10 @@ function llenarTabla(){
             }
             },
             {title:"Precio", data:"Precio"},
-            {title:"Fecha", data:"fecha"}
+            {title:"", data:null,render: function (data, type, row){
+                return '<button type="button" onclick="Eliminar('+data.id+')" class="btn btn-danger">Eliminar</button>';
+            }
+        }
         ],
         "fnInitComplete": function (oSettings, json) {
             var fila = $(this).children("thead").children("tr").clone();

@@ -24,40 +24,40 @@
 					<div class="product col-md-3 service-image-left ">
                     
 						
-							<img id="item-display" src="img/libro.png" alt=""></img>
+							<img id="item-display"alt=""></img>
 						
 					</div>
 					
 					<div class="container service1-items ">
 						
 							<a id="item-1" class="service1-item">
-								<img src="img/libro.png" alt=""></img>
+								
 							</a>
 							<a id="item-2" class="service1-item">
-								<img src="img/libro.png" alt=""></img>
+								
 							</a>
 							<a id="item-3" class="service1-item">
-								<img src="img/libro.png" alt=""></img>
+								
 							</a>
 						
 					</div>
 				</div>
 					
 				<div class="col-md-7">
-					<div class="product-title">Libro de Prueba</div>
-					<div class="product-desc">Como un libro pero de prueba</div>
+					<div id="titulo" class="product-title"></div>
+					<div id="desc" class="product-desc"></div>
 					
 					<hr>
-					<div class="product-price">$ 123.00</div>
-					<div class="product-stock">En Stock</div>
+					<div id="precio" class="product-price"></div>
+					<div id="stock" class="product-stock"></div>
 					<hr>
 					<div class="btn-group cart">
-						<button type="button" class="btn btn-success">
+						<button type="button" onclick="Agregar()" class="btn btn-success">
 							Agregar al carrito 
 						</button>
 					</div>
 					<div class="btn-group wishlist">
-						<button type="button" class="btn btn-danger">
+						<button type="button" onclick="Deseados()" class="btn btn-danger">
 							Agregar a la lista de deseados
 						</button>
 					</div>
@@ -75,18 +75,14 @@
 					</ul>
 				<div id="myTabContent" class="tab-content">
 						<div class="tab-pane fade in active" id="servicio-uno">
-						 
 							<section class="container product-info">
-								Descripcion basica de lo que se compra
 
-								<h3>Cosas de producto:</h3>
-								<li>Cosas de relleno</li>
-								
 							</section>
 										  
 						</div>
 					<div class="tab-pane fade" id="servicio-dos">
-            Comentarios de los Compradores		
+						<table id="comentarios" class="table table-hover">
+						</table>
 					</div>
 				</div>
 				<hr>

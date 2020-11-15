@@ -1,11 +1,11 @@
 $(document).ready(function(){
   $('#btnLogin').click(function(){
     debugger;
-    window.location.href='Login.html';
+    window.location.href='Login.php';
   });
 
   $('#btnRegistro').click(function(){
-    window.location.href='Registro.html';
+    window.location.href='Registro.php';
   });
   
 });
