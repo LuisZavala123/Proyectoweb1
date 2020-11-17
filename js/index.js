@@ -5,8 +5,8 @@ $(document).ready(function(){
 
 function llenar(){
     let libros = obtenerLibros();
-    let contenido=" ";
-
+    let contenido="";
+    let Busqueda = obtenerbusqueda();
 
     for (let index = 0; index <libros.length; index++) {
        contenido=' <div class="row">'+
@@ -19,8 +19,14 @@ function llenar(){
               '<button onclicK="Mostrar('+libros[index].id+')" class="btn btn-info text-white rounded">Mostrar</button>'+
             '</div>'+
           '</div>'+
-    '</div>' ;     
-    $("#cuerpo").append(contenido);
+    '</div>' ;
+    if (Busqueda!="") {
+        if (libros[index].titulo.includes(Busqueda)) {
+            $("#cuerpo").append(contenido);  
+        }
+    }else{
+        $("#cuerpo").append(contenido);  
+    }
     }
 }
 
@@ -30,6 +36,14 @@ function obtenerLibros(){
         lista=JSON.parse(localStorage.getItem("Libros"));
     }
     return lista;
+}
+
+function obtenerbusqueda(){
+    let respuesta="";
+    if(localStorage.getItem("Busqueda")!=null){
+        respuesta=JSON.parse(localStorage.getItem("Busqueda"));
+    }
+    return respuesta;
 }
 
 function Mostrar(id){

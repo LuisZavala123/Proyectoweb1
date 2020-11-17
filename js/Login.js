@@ -8,7 +8,7 @@ $(document).ready(function(){
         Pass = $('#txtPass').val();
         $("#frmCaptura").data('bootstrapValidator').validate();
             if($("#frmCaptura").data('bootstrapValidator').isValid()){
-                debugger;
+                
                 for (let index = 0; index < usuarios.length; index++) {
                     if(usuarios[index].usuario==us&&usuarios[index].pass==Pass){
                         cor++;

@@ -25,7 +25,7 @@
                   </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <input class="form-control " type="search" placeholder="Busqueda" aria-label="Busqueda">
+                    <input class="form-control" id="btnBusqueda" type="search" placeholder="Busqueda" aria-label="Busqueda">
                 </li>
                 <li class="nav-item dropdown">
                     <button class="btn btn-success my-2 my-sm-0" type="button"><img class="icono2" src="img/lupa.png" alt=""></button>

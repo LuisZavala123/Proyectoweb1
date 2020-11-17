@@ -52,12 +52,12 @@
 					<div id="stock" class="product-stock"></div>
 					<hr>
 					<div class="btn-group cart">
-						<button type="button" onclick="Agregar()" class="btn btn-success">
+						<button type="button" id="btnAgregar" class="btn btn-success">
 							Agregar al carrito 
 						</button>
 					</div>
 					<div class="btn-group wishlist">
-						<button type="button" onclick="Deseados()" class="btn btn-danger">
+						<button type="button" id="btnDeseados" class="btn btn-danger">
 							Agregar a la lista de deseados
 						</button>
 					</div>
@@ -81,7 +81,13 @@
 										  
 						</div>
 					<div class="tab-pane fade" id="servicio-dos">
-						<table id="comentarios" class="table table-hover">
+					<form id="frmCaptura">
+						<input class="form-control" id="txtComentario" type="text" placeholder="Por favor deja tu comentario">
+						<button type="button" id="btnComentario" class="btn btn-success">
+							Comentar
+						</button>
+					</form>
+						<table id="tblComentarios" class="table table-hover">
 						</table>
 					</div>
 				</div>
