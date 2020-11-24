@@ -28,7 +28,7 @@ class ProductoDao
 
 			$sentenciaSQL = $this->conexion->prepare(
                 "SELECT ID Clave, Usuario Usuario, Nombre Nombre,
-                Password Password, Direccion Direccion 
+                Password Password, Direccion Direccion, EsEmpleado EsEmpleado 
                 FROM Usuario ORDER BY ID;");
             
                 
@@ -42,7 +42,8 @@ class ProductoDao
 	            $obj->Usuario = $fila->Usuario;
 	            $obj->Nombre = $fila->Nombre;
 	            $obj->Password = $fila->Password;
-	            $obj->Direccion = $fila->Direccion;
+				$obj->Direccion = $fila->Direccion;
+				$obj->EsEmpleado= $fila->EsEmpleado;
 				$lista[] = $obj;
 			}
             
@@ -126,7 +127,7 @@ class ProductoDao
             $this->conectar();
             
 			$sentenciaSQL = $this->conexion->prepare("SELECT ID Clave, Usuario Usuario, Nombre Nombre,
-                                                Password Password, Direccion Direccion 
+                                                Password Password, Direccion Direccion , EsEmpleado EsEmpleado 
 											FROM Usuario 
 											WHERE ID=?"); /*Se arma la sentencia sql para seleccionar todos los registros de la base de datos*/
 			$sentenciaSQL->execute([$id]);/*Se ejecuta la sentencia sql, retorna un cursor el producto a buscar*/
@@ -139,7 +140,8 @@ class ProductoDao
 	            $obj->Usuario = $fila->Usuario;
 	            $obj->Nombre = $fila->Nombre;
 	            $obj->Password = $fila->Password;
-	            $obj->Direccion = $fila->Direccion;
+				$obj->Direccion = $fila->Direccion;
+				$obj->EsEmpleado= $fila->EsEmpleado;
                 
 			
 			return $obj;
@@ -192,7 +194,8 @@ class ProductoDao
 	                $obj->Usuario,
 	                $obj->Nombre,
 	                $obj->Password,
-	                $obj->Direccion));
+					$obj->Direccion,
+					$obj->EsEmpleado));
             return true;
 		} catch (Exception $e){
 			echo $e->getMessage();
@@ -209,8 +212,8 @@ class ProductoDao
 		try 
 		{
 
-            $sql = "INSERT INTO Usuario (ID, Usuario, Nombre, Password, Direccion)
-			 values(?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO Usuario (ID, Usuario, Nombre, Password, Direccion, EsEmpleado)
+			 values(?, ?, ?, ?, ?, ?)";
             
             $this->conectar();
             $this->conexion->prepare($sql)
@@ -219,7 +222,8 @@ class ProductoDao
                     $obj->Usuario,
                     $obj->Nombre,
                     $obj->Password,
-                    $obj->Direccion));
+					$obj->Direccion,
+					$obj->EsEmpleado));
             $clave=$this->conexion->lastInsertId();
             return $clave;
 		} catch (Exception $e){
