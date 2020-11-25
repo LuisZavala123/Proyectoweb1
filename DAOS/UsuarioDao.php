@@ -1,7 +1,7 @@
 <?php
 require_once 'Conexion.php'; /*importa Conexion.php*/
-require_once '../modelos/ModeloUsuario.php'; /*importa el modelo */
-class ProductoDao
+require_once 'modelos/ModeloUsuario.php'; /*importa el modelo */
+class UsuarioDao
 {
     
 	private $conexion; /*Crea una variable conexion*/

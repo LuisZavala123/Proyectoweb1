@@ -5,19 +5,19 @@ class ModeloUsuario{
     public $Nombre;
     public $Password;
     public $Direccion;
-    public $EsEmpleado
+    public $EsEmpleado;
 
     function __construct(){}
-    function __construct1($ID,$Usuario,$Nombre
+    function __construct1($ID,$Usuario,$Nombre,
                         $Password,$Descripcion,$EsEmpleado){
         $this->$ID=$ID;
         $this->$Usuario=$Usuario;
         $this->$Nombre=$Nombre;
         $this->$Password=$Password;
         $this->$Direccion=$Direccion;
-        $this->$EsEmpleado=$EsEmpleado:
+        $this->$EsEmpleado=$EsEmpleado;
     }
-    function __construct2($Usuario,$Nombre
+    function __construct2($Usuario,$Nombre,
                         $Password,$Descripcion,$EsEmpleado){
         $this->$Usuario=$Usuario;
         $this->$Nombre=$Nombre;

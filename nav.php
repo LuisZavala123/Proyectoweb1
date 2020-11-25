@@ -3,6 +3,7 @@
           <?php
           session_start();
           ?>
+        
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="btncerrar" onclick="closeNav()">&times;</a>
             <a href="index.php">Inicio</a>
