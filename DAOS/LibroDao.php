@@ -1,7 +1,7 @@
 <?php
 require_once 'Conexion.php'; /*importa Conexion.php*/
-require_once '../modelos/ModeloLibro.php'; /*importa el modelo */
-class ProductoDao
+require_once 'modelos/ModeloLibro.php'; /*importa el modelo */
+class LibroDao
 {
     
 	private $conexion; /*Crea una variable conexion*/
@@ -15,49 +15,8 @@ class ProductoDao
 			die($e->getMessage()); /*Si la conexion no se establece se cortara el flujo enviando un mensaje con el error*/
 		}
     }
-    
-    
-   /*Metodo que obtiene todos los productos de la base de datos, retorna una lista de objetos */
-	public function obtenerTodos()
-	{
-		try
-		{
-            $this->conectar();
-            
-			$lista = array(); /*Se declara una variable de tipo  arreglo que almacenará los registros obtenidos de la BD*/
-
-			$sentenciaSQL = $this->conexion->prepare(
-                "SELECT ID Clave, Titulo Titulo, Descripcion Descripcion,
-                Precio Precio, Stock Stock 
-                FROM Libro ORDER BY ID;");
-            
-                
-			$sentenciaSQL->execute();/*Se ejecuta la sentencia sql, retorna un cursor con todos los elementos*/
-            
-            /*Se recorre el cursor para obtener los datos de la forma de arreglo de objetos*/
-			foreach($sentenciaSQL->fetchAll(PDO::FETCH_OBJ) as $fila)
-			{
-				$obj = new ModeloLibro();
-                $obj->ID = $fila->Clave;
-	            $obj->Titulo = $fila->Titulo;
-	            $obj->Descripcion = $fila->Descripcion;
-	            $obj->Precio = $fila->Precio;
-	            $obj->Stock = $fila->Stock;
-                $obj->Fotos[] = obtenerFotos($fila->Clave);
-				$lista[] = $obj;
-			}
-            
-			return $lista;
-		}
-		catch(Exception $e){
-			echo $e->getMessage();
-			return null;
-		}finally{
-            Conexion::cerrarConexion();
-        }
-    }
-    
-    public function obtenerFotos($id)
+	
+	public function obtenerFotos($id)
 	{
 		try
 		{
@@ -88,6 +47,48 @@ class ProductoDao
         }
 	}
     
+   /*Metodo que obtiene todos los productos de la base de datos, retorna una lista de objetos */
+	public function obtenerTodos()
+	{
+		try
+		{
+            $this->conectar();
+            
+			$lista = array(); /*Se declara una variable de tipo  arreglo que almacenará los registros obtenidos de la BD*/
+
+			$sentenciaSQL = $this->conexion->prepare(
+                "SELECT ID Clave, Titulo Titulo, Descripcion Descripcion,
+                Precio Precio, Stock Stock 
+                FROM Libro ORDER BY ID;");
+            
+                
+			$sentenciaSQL->execute();/*Se ejecuta la sentencia sql, retorna un cursor con todos los elementos*/
+            
+            /*Se recorre el cursor para obtener los datos de la forma de arreglo de objetos*/
+			foreach($sentenciaSQL->fetchAll(PDO::FETCH_OBJ) as $fila)
+			{
+				$obj = new ModeloLibro();
+                $obj->ID = $fila->Clave;
+	            $obj->Titulo = $fila->Titulo;
+	            $obj->Descripcion = $fila->Descripcion;
+	            $obj->Precio = $fila->Precio;
+	            $obj->Stock = $fila->Stock;
+                $obj->Fotos[] = $this->obtenerFotos($fila->Clave);
+				$lista[] = $obj;
+			}
+            
+			return $lista;
+		}
+		catch(Exception $e){
+			echo $e->getMessage();
+			return null;
+		}finally{
+            Conexion::cerrarConexion();
+        }
+    }
+    
+    
+    
     
 
     /*Metodo que obtiene un registro de la base de datos, retorna un objeto */
@@ -112,7 +113,7 @@ class ProductoDao
 	            $obj->Descripcion = $fila->Descripcion;
 	            $obj->Precio = $fila->Precio;
 	            $obj->Stock = $fila->Stock;
-                $obj->Fotos[] = obtenerFotos($fila->Clave);
+                $obj->Fotos[] = $this->obtenerFotos($fila->Clave);
                 
 			
 			return $obj;
@@ -146,7 +147,7 @@ class ProductoDao
 	            $obj->Descripcion = $fila->Descripcion;
 	            $obj->Precio = $fila->Precio;
 	            $obj->Stock = $fila->Stock;
-                $obj->Fotos[] = obtenerFotos($fila->Clave);
+                $obj->Fotos[] = $this->obtenerFotos($fila->Clave);
                 
 			
 			return $obj;

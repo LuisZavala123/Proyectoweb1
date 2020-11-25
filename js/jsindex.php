@@ -1,3 +1,5 @@
+
+<script>
 $(document).ready(function(){
 
     llenar();
@@ -50,3 +52,4 @@ function Mostrar(id){
     localStorage.setItem('Libro',JSON.stringify(id))
     window.location.href='Libro.php';
 }
+</script>
