@@ -73,7 +73,7 @@ class LibroDao
 	            $obj->Descripcion = $fila->Descripcion;
 	            $obj->Precio = $fila->Precio;
 	            $obj->Stock = $fila->Stock;
-                $obj->Fotos[] = $this->obtenerFotos($fila->Clave);
+				$obj->Foto = $this->obtenerFotos($fila->Clave)[0];
 				$lista[] = $obj;
 			}
             
@@ -113,7 +113,7 @@ class LibroDao
 	            $obj->Descripcion = $fila->Descripcion;
 	            $obj->Precio = $fila->Precio;
 	            $obj->Stock = $fila->Stock;
-                $obj->Fotos[] = $this->obtenerFotos($fila->Clave);
+                $obj->Foto = $this->obtenerFotos($fila->Clave)[0];
                 
 			
 			return $obj;
@@ -147,7 +147,7 @@ class LibroDao
 	            $obj->Descripcion = $fila->Descripcion;
 	            $obj->Precio = $fila->Precio;
 	            $obj->Stock = $fila->Stock;
-                $obj->Fotos[] = $this->obtenerFotos($fila->Clave);
+                $obj->Foto = $this->obtenerFotos($fila->Clave)[0];
                 
 			
 			return $obj;
