@@ -16,7 +16,7 @@
         
         if (isset($_GET["w1"])&&isset($_GET["w2"])) {
           if (isset($_SESSION["Correcto"])) {
-            if (condition) {
+            
               if ($_SESSION["Correcto"]=="si") {
                 $_SESSION["Correcto"]=null;
                 $_SESSION["Usuario"]=$_GET["w1"];
@@ -24,7 +24,7 @@
                 header('Location: index.php');
                 die();
               }
-            }
+            
           }
         }
     ?>

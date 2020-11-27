@@ -12,6 +12,33 @@
 <body>
   <?php
         include "nav.php";
+
+        if (isset($_GET["w1"])) {
+       
+          require_once "DAOS/UsuarioDao.php";
+            $dao=new UsuarioDao();
+            $us =json_decode($_GET["w1"]);
+
+
+              $obj = new ModeloUsuario();
+	            $obj->Usuario = $us->Usuario;
+	            $obj->Nombre = $us->Nombre;
+	            $obj->Password = $us->Password;
+				      $obj->Direccion = $us->Direccion;
+				      $obj->EsEmpleado= $us->EsEmpleado;
+
+
+              echo json_encode($obj);
+            if ($dao->agregar($obj)!=0) {
+              echo 123;
+              header('Location: index.php');
+                die();
+            }
+                
+              
+                     
+        }
+
     ?>
 
     <!--BODY-->
@@ -24,7 +51,7 @@
                   <form id="frmCaptura" class="border my-4 p-4">
                     <div class="row">
                       <div class="form-group col-12">
-                          <input id="txtUser" name="txtUser" type="text" placeholder="Usuario" class="form-control rounded">  
+                          <input id="txtUser" name="txtUser" type="Email" placeholder="Usuario (correo)" class="form-control rounded">  
                       </div>
                     </div>
                     <div class="row">
@@ -39,7 +66,7 @@
                     </div>
                     <div class="row">
                       <div class="form-group col-12">
-                          <input id="txtEmail" name="txtEmail" type="email" placeholder="Correo Electronico" class="form-control rounded">  
+                          <input id="txtDir" name="txtDir" type="text" placeholder="Direccion" class="form-control rounded">  
                       </div>
                     </div>
                     <div class="row">
@@ -48,6 +75,10 @@
                   </div>
                   <div class="form-group col-12">
                     <input id="txtPass2" name="txtPass2" type="password" placeholder="Repetir Contraseña" class="form-control rounded">  
+                </div>
+                <div class="form-group col-12">
+                <input type="checkbox" class="custom-control-input" id="cboxEmpleado" value="">
+                <label class="custom-control-label" for="cboxEmpleado">Es Empleado?</label>  
                 </div>
                 </div>
                 <button id="btnRegistro" class="btn btn-info text-white rounded" type="button">Registrarse</button>
@@ -62,6 +93,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 <script src="fontawesome/js/all.min.js"></script>
 <script src="js/bootstrapValidator.js"></script>
-<script src="js/Registro.js"></script>
 <script src="js/navs.js"></script>
+<?php
+        include "js/Registrojs.php";
+        
+    ?>
 </html>

@@ -62,11 +62,5 @@ $(document).ready(function(){
 
 });
 
-function obtenerUsuarios(){
-    let lista=[];
-    if(localStorage.getItem("Usuarios")!=null){
-        lista=JSON.parse(localStorage.getItem("Usuarios"));
-    }
-    return lista;
-}
+
 </script>

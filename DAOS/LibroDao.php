@@ -181,7 +181,7 @@ class LibroDao
 	}
 
 	//Función para editar al registro de acuerdo al objeto recibido como parámetro
-	public function editar(Producto $obj)
+	public function editar(ModeloLibro $obj)
 	{
 		try 
 		{
@@ -211,7 +211,7 @@ class LibroDao
 	}
 
 	//Agrega un nuevo registro de acuerdo al objeto recibido como parámetro
-	public function agregar(Producto $obj)
+	public function agregar(ModeloLibro $obj)
 	{
         $clave=0;
 		try 
