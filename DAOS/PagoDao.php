@@ -113,7 +113,7 @@ class ProductoDao
 	}
 
 	//Función para editar al registro de acuerdo al objeto recibido como parámetro
-	public function editar(Producto $obj)
+	public function editar(ModeloPago $obj)
 	{
 		try 
 		{
@@ -145,7 +145,7 @@ class ProductoDao
 	}
 
 	//Agrega un nuevo registro de acuerdo al objeto recibido como parámetro
-	public function agregar(Producto $obj)
+	public function agregar(ModeloPago $obj)
 	{
         $clave=0;
 		try 

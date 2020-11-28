@@ -175,7 +175,7 @@ class UsuarioDao
 	}
 
 	//Función para editar al registro de acuerdo al objeto recibido como parámetro
-	public function editar(Producto $obj)
+	public function editar(ModeloUsuario $obj)
 	{
 		try 
 		{
@@ -206,19 +206,19 @@ class UsuarioDao
 	}
 
 	//Agrega un nuevo registro de acuerdo al objeto recibido como parámetro
-	public function agregar(Producto $obj)
+	public function agregar(ModeloUsuario $obj)
 	{
         $clave=0;
 		try 
 		{
 
-            $sql = "INSERT INTO Usuario (ID, Usuario, Nombre, Password, Direccion, EsEmpleado)
-			 values(?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO Usuario ( Usuario, Nombre, Password, Direccion, EsEmpleado)
+			 values( ?, ?, ?, ?, ?)";
             
             $this->conectar();
             $this->conexion->prepare($sql)
                  ->execute(
-                array($obj->ID,
+                array(
                     $obj->Usuario,
                     $obj->Nombre,
                     $obj->Password,
