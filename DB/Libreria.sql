@@ -74,23 +74,6 @@ LOCK TABLES `deseados` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `foto`
---
-
-DROP TABLE IF EXISTS `foto`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `foto` (
-  `ID` int NOT NULL AUTO_INCREMENT,
-  `Url` text NOT NULL,
-  `IDLibro` int NOT NULL,
-  PRIMARY KEY (`ID`),
-  KEY `IDLibro` (`IDLibro`),
-  CONSTRAINT `foto_ibfk_1` FOREIGN KEY (`IDLibro`) REFERENCES `libro` (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `foto`
 --
 
@@ -112,6 +95,7 @@ CREATE TABLE `libro` (
   `Descripcion` text,
   `Precio` decimal(6,2) NOT NULL,
   `Stock` int NOT NULL,
+  `Foto` varchar(50) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

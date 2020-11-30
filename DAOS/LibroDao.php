@@ -58,7 +58,7 @@ class LibroDao
 
 			$sentenciaSQL = $this->conexion->prepare(
                 "SELECT ID Clave, Titulo Titulo, Descripcion Descripcion,
-                Precio Precio, Stock Stock 
+                Precio Precio, Stock Stock , Foto Foto
                 FROM Libro ORDER BY ID;");
             
                 
@@ -73,7 +73,7 @@ class LibroDao
 	            $obj->Descripcion = $fila->Descripcion;
 	            $obj->Precio = $fila->Precio;
 	            $obj->Stock = $fila->Stock;
-				$obj->Foto = $this->obtenerFotos($fila->Clave)[0];
+                $obj->Foto = $fila->Foto;
 				$lista[] = $obj;
 			}
             
@@ -87,10 +87,6 @@ class LibroDao
         }
     }
     
-    
-    
-    
-
     /*Metodo que obtiene un registro de la base de datos, retorna un objeto */
 	public function obtenerUno($id)
 	{
@@ -99,7 +95,7 @@ class LibroDao
             $this->conectar();
             
 			$sentenciaSQL = $this->conexion->prepare("SELECT ID Clave, Titulo Titulo, Descripcion Descripcion,
-                                            Precio Precio, Stock Stock 
+                                            Precio Precio, Stock Stock , Foto Foto
 											FROM Libro 
 											WHERE ID=?"); /*Se arma la sentencia sql para seleccionar todos los registros de la base de datos*/
 			$sentenciaSQL->execute([$id]);/*Se ejecuta la sentencia sql, retorna un cursor el producto a buscar*/
@@ -113,8 +109,7 @@ class LibroDao
 	            $obj->Descripcion = $fila->Descripcion;
 	            $obj->Precio = $fila->Precio;
 	            $obj->Stock = $fila->Stock;
-                $obj->Foto = $this->obtenerFotos($fila->Clave)[0];
-                
+              $obj->Foto = $fila->Foto;
 			
 			return $obj;
 		}
@@ -186,21 +181,23 @@ class LibroDao
 		try 
 		{
 			$sql = "UPDATE Libro SET 
-                    ID = ?,
                     Titulo = ?,
                     Descripcion = ?,
 					Precio = ?,
-					Stock = ?
+					Stock = ?,
+					Foto = ?
 				    WHERE ID = ?";
 			$this->conectar();
 			
             $sentenciaSQL = $this->conexion->prepare($sql);			          
 			$sentenciaSQL->execute(
-				array($obj->ID,
+				array(
 	                $obj->Titulo,
 	                $obj->Descripcion,
 	                $obj->Precio,
-	                $obj->Stock));
+	                $obj->Stock,
+					$obj->Foto,
+					$obj->ID));
             return true;
 		} catch (Exception $e){
 			echo $e->getMessage();
@@ -216,18 +213,17 @@ class LibroDao
         $clave=0;
 		try 
 		{
-
-            $sql = "INSERT INTO Libro (ID, Titulo, Descripcion, Precio, Stock)
-			 values(?, ?, ?, ?, ?)";
-            
+            $sql = "INSERT INTO libro (`Titulo`,`Descripcion`,`Precio`,`Stock`,`Foto`)
+			 values(?, ?, ?, ?, ?)";   
             $this->conectar();
             $this->conexion->prepare($sql)
                  ->execute(
-                array($obj->ID,
-                    $obj->Titulo,
-                    $obj->Descripcion,
+                array(
+					$obj->Titulo,
+					$obj->Descripcion,
                     $obj->Precio,
-                    $obj->Stock));
+					$obj->Stock,
+					$obj->Foto));
             $clave=$this->conexion->lastInsertId();
             return $clave;
 		} catch (Exception $e){
@@ -241,4 +237,35 @@ class LibroDao
             Conexion::cerrarConexion();
         }
 	}
+
+	//Funciones agregadas
+    /*Metodo para obtener el utlimo id agregado en la BD*/
+	public function obtenerUtltimoID()
+	{
+		try
+		{ 
+            $this->conectar();
+            
+			$sentenciaSQL = $this->conexion->prepare("SELECT MAX(ID) AS id FROM Libro"); /*Se arma la sentencia sql para obtener el ultimo ID agregado en la tabla Libro*/
+			$sentenciaSQL->execute();/*Se ejecuta la sentencia sql, retorna un cursor el ultimo ID agregado*/
+            
+            /*Obtiene el datos*/
+			$fila=$sentenciaSQL->fetch(PDO::FETCH_NUM);
+			$id;
+			if (empty($fila[0])) 
+			{
+				return 0;
+			}
+			else{
+				return $fila[0];
+			}
+		}
+		catch(Exception $e){
+            //echo $e->getMessage();
+            return null;
+		}finally{
+            Conexion::cerrarConexion();
+        }
+	}
+
 }
