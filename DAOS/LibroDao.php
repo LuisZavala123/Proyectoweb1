@@ -239,7 +239,7 @@ class LibroDao
 	}
 
 	//Funciones agregadas
-    /*Metodo que obtiene un registro de la base de datos, retorna un objeto */
+    /*Metodo para obtener el utlimo id agregado en la BD*/
 	public function obtenerUtltimoID()
 	{
 		try
