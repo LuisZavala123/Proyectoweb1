@@ -7,7 +7,7 @@ $(document).ready(function(){
     
     ?>
 
-    $('#btnRegistro').click(function(){
+    $('#btnRegistrar').click(function(){
         alert('llega');
         usuarios= <?= json_encode($dao->obtenerTodos()); ?>;
 
@@ -40,7 +40,7 @@ $(document).ready(function(){
                 obj.Password=Pass;
                 obj.EsEmpleado =EsEmpleado;
 
-                window.location.href = window.location.href+ "?w1=" + obj ;
+                window.location.href = window.location.href+ "?w1="+ JSON.stringify(obj);
 
             }
         }

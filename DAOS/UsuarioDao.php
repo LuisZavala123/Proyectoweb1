@@ -66,8 +66,8 @@ class UsuarioDao
 			$lista = array(); /*Se declara una variable de tipo  arreglo que almacenará los registros obtenidos de la BD*/
 
 			$sentenciaSQL = $this->conexion->prepare(
-                "SELECT ID Clave, IDUsuario IDUsuario, IDLibro IDLibro
-                FROM Carrito WHERE IDLibro = ? ;");
+                "SELECT ID Clave, IDUsuario IDUsuario, IDLibro IDLibro,Libro Libro, Precio Precio 
+                FROM Carrito WHERE IDUsuario = ? ;");
             
                 
 			$sentenciaSQL->execute([$id]);/*Se ejecuta la sentencia sql, retorna un cursor con todos los elementos*/
@@ -75,7 +75,13 @@ class UsuarioDao
             /*Se recorre el cursor para obtener los datos de la forma de arreglo de objetos*/
 			foreach($sentenciaSQL->fetchAll(PDO::FETCH_OBJ) as $fila)
 			{
-				$lista[] = $fila->IDLibro;
+				$obj = new ModeloCarrito();
+                $obj->ID = $fila->Clave;
+	            $obj->IDUsuario = $fila->IDUsuario;
+	            $obj->IDLibro = $fila->IDLibro;
+	            $obj->Libro = $fila->Libro;
+				$obj->Precio = $fila->Precio;
+				$lista[] = $obj;
 			}
             
 			return $lista;
@@ -97,8 +103,8 @@ class UsuarioDao
 			$lista = array(); /*Se declara una variable de tipo  arreglo que almacenará los registros obtenidos de la BD*/
 
 			$sentenciaSQL = $this->conexion->prepare(
-                "SELECT ID Clave, IDUsuario IDUsuario, IDLibro IDLibro
-                FROM Deseados WHERE IDLibro = ? ;");
+                "SELECT ID Clave, IDUsuario IDUsuario, IDLibro IDLibro,Libro Libro
+                FROM Deseados WHERE IDUsurio = ? ;");
             
                 
 			$sentenciaSQL->execute([$id]);/*Se ejecuta la sentencia sql, retorna un cursor con todos los elementos*/
@@ -106,7 +112,12 @@ class UsuarioDao
             /*Se recorre el cursor para obtener los datos de la forma de arreglo de objetos*/
 			foreach($sentenciaSQL->fetchAll(PDO::FETCH_OBJ) as $fila)
 			{
-				$lista[] = $fila->IDLibro;
+				$obj = new ModeloDeseado();
+                $obj->ID = $fila->Clave;
+	            $obj->IDUsuario = $fila->IDUsuario;
+	            $obj->IDLibro = $fila->IDLibro;
+	            $obj->Libro = $fila->Libro;
+				$lista[] = $obj;
 			}
             
 			return $lista;

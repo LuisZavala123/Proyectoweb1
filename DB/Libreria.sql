@@ -28,6 +28,8 @@ CREATE TABLE `carrito` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `IDUsuario` int NOT NULL,
   `IDLibro` int NOT NULL,
+  `Libro` varchar(50) NOT NULL,
+  `Precio` decimal(6,2) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `IDUsuario` (`IDUsuario`),
   KEY `IDLibro` (`IDLibro`),
@@ -56,6 +58,7 @@ CREATE TABLE `deseados` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `IDUsuario` int NOT NULL,
   `IDLibro` int NOT NULL,
+  `Libro` varchar(50) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY `IDUsuario` (`IDUsuario`),
   KEY `IDLibro` (`IDLibro`),
@@ -71,15 +74,6 @@ CREATE TABLE `deseados` (
 LOCK TABLES `deseados` WRITE;
 /*!40000 ALTER TABLE `deseados` DISABLE KEYS */;
 /*!40000 ALTER TABLE `deseados` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `foto`
---
-
-LOCK TABLES `foto` WRITE;
-/*!40000 ALTER TABLE `foto` DISABLE KEYS */;
-/*!40000 ALTER TABLE `foto` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -154,7 +148,7 @@ CREATE TABLE `usuario` (
   `Direccion` varchar(200) NOT NULL,
   `EsEmpleado` int DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,6 +157,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,'asdasdasdsad@sadad.da','asdasd sadas','12345','asdasda',0);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -175,4 +170,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-24 14:11:11
+-- Dump completed on 2020-11-30 14:26:52

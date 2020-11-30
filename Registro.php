@@ -19,7 +19,6 @@
             $dao=new UsuarioDao();
             $us =json_decode($_GET["w1"]);
 
-
               $obj = new ModeloUsuario();
 	            $obj->Usuario = $us->Usuario;
 	            $obj->Nombre = $us->Nombre;
@@ -81,7 +80,7 @@
                 <label class="custom-control-label" for="cboxEmpleado">Es Empleado?</label>  
                 </div>
                 </div>
-                <button id="btnRegistro" class="btn btn-info text-white rounded" type="button">Registrarse</button>
+                <button id="btnRegistrar" class="btn btn-info text-white rounded" type="button">Registrarse</button>
                 </form>                  
                 </div>
               </div>
