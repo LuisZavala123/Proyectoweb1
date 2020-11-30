@@ -8,8 +8,8 @@ $(document).ready(function(){
     ?>
 
     $('#btnRegistro').click(function(){
-        
-        usuarios= <?php echo json_encode($dao->obtenerTodos()); ?>;
+        alert('llega');
+        usuarios= <?= json_encode($dao->obtenerTodos()); ?>;
 
         Us = $('#txtUser').val();
         nom = $('#txtNombre').val();
@@ -40,7 +40,7 @@ $(document).ready(function(){
                 obj.Password=Pass;
                 obj.EsEmpleado =EsEmpleado;
 
-               window.location.href = window.location.href + "?w1=" + JSON.stringify(obj);
+                window.location.href = window.location.href+ "?w1=" + obj ;
 
             }
         }
