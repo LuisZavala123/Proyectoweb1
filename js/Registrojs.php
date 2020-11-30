@@ -1,50 +1,47 @@
+<script>
 $(document).ready(function(){
-
+<?php
+    
+    require_once "DAOS/UsuarioDao.php";
+        $dao=new UsuarioDao();
+    
+    ?>
 
     $('#btnRegistro').click(function(){
-        usuarios = obtenerUsuarios();
+        
+        usuarios= <?php echo json_encode($dao->obtenerTodos()); ?>;
 
         Us = $('#txtUser').val();
         nom = $('#txtNombre').val();
         ap = $('#txtApellido').val();
-        email = $('#txtEmail').val();
+        dir = $('#txtDir').val();
         Pass = $('#txtPass').val();
         Pass2 = $('#txtPass2').val();
+        EsEmpleado =0;
+        if ($('#cboxEmpleado').checked) {
+            EsEmpleado =1;
+        }
 
         let cus=0;
-        let cem=0;
 
         $("#frmCaptura").data('bootstrapValidator').validate();
             if($("#frmCaptura").data('bootstrapValidator').isValid()){
-                debugger;
+                
                 for (let index = 0; index < usuarios.length; index++) {
-                    if(usuarios[index].usuario==us){
+                    if(usuarios[index].Usuario==Us){
                         cus++;
                     }
-                    if(usuarios[index].email==email){
-                        cem++;
-                    }
             }
-            if (cus<1&&cem<1&&Pass==Pass2) {
+            if (cus<1&&Pass==Pass2) {
                 let obj={};
-                obj.id=usuarios.length+1;
-                obj.usuario=us;
-                obj.nombre=nom+" "+ap;
-                obj.email=email;
-                obj.pass=Pass;
-                obj.direccion="";
+                obj.Usuario=Us;
+                obj.Nombre=nom+" "+ap;
+                obj.Direccion=dir;
+                obj.Password=Pass;
+                obj.EsEmpleado =EsEmpleado;
 
-                usuarios.push(obj);
+               window.location.href = window.location.href + "?w1=" + JSON.stringify(obj);
 
-                localStorage.setItem("Actual",JSON.stringify(obj.id));
-
-                localStorage.setItem("Usuarios",JSON.stringify(usuarios));
-            }else if(cus>0){
-
-            }else if(cem>0){
-                
-            }else{
-                
             }
         }
 
@@ -52,7 +49,7 @@ $(document).ready(function(){
 
     $('#frmCaptura').bootstrapValidator({
         fields: {
-            txtUser:{
+            txtDir:{
                 validators:{
                     notEmpty: {
                         message: 'El nombre de Usuario es un valor necesario'
@@ -82,7 +79,7 @@ $(document).ready(function(){
                         max:100
                     }
                 }
-            },txtEmail: {
+            },txtUser: {
                 validators: {
                   notEmpty: {
                     message: 'El correo electronico es requerido'
@@ -120,10 +117,4 @@ $(document).ready(function(){
     });
 });
 
-function obtenerUsuarios(){
-    let lista=[];
-    if(localStorage.getItem("Usuarios")!=null){
-        lista=JSON.parse(localStorage.getItem("Usuarios"));
-    }
-    return lista;
-}
+</script>

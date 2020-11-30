@@ -1,22 +1,32 @@
+<script>
 $(document).ready(function(){
-    
+    <?php
+    require_once "DAOS/UsuarioDao.php";
+        $dao=new UsuarioDao();
+    ?>
     $('#btnAceptar').click(function(){
-        usuarios = obtenerUsuarios();
+        
+        usuarios = <?php echo json_encode($dao->obtenerTodos()); ?>;
         let cor=0;
         let num=0;
-        Us = $('#txtUser').val();
+        us = $('#txtUser').val();
         Pass = $('#txtPass').val();
         $("#frmCaptura").data('bootstrapValidator').validate();
             if($("#frmCaptura").data('bootstrapValidator').isValid()){
                 
                 for (let index = 0; index < usuarios.length; index++) {
-                    if(usuarios[index].usuario==us&&usuarios[index].pass==Pass){
+                    if(usuarios[index].Usuario==us&&usuarios[index].Password==Pass){
                         cor++;
                         num=index;
                 }
             }
             if (cor==1) {
-                localStorage.setItem("Actual",JSON.stringify(usuarios[num].id));
+                debugger;
+                <?php
+                $_SESSION["Correcto"]="si";
+                ?>
+                window.location.href = window.location.href + "?w1=" + usuarios[num].Nombre + "&w2=" + usuarios[num].EsEmpleado;
+                
             }
         }
 
@@ -40,8 +50,8 @@ $(document).ready(function(){
                     notEmpty: {
                         message: 'La contraseña es un valor necesario'
                     },stringLength: {
-                        message: 'La contraseña debe tener entre 5 y 100 caracteres',
-                        min:5,
+                        message: 'La contraseña debe tener entre 2 y 100 caracteres',
+                        min:2,
                         max:100
                     }
                 }
@@ -52,10 +62,5 @@ $(document).ready(function(){
 
 });
 
-function obtenerUsuarios(){
-    let lista=[];
-    if(localStorage.getItem("Usuarios")!=null){
-        lista=JSON.parse(localStorage.getItem("Usuarios"));
-    }
-    return lista;
-}
+
+</script>

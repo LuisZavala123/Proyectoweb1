@@ -1,5 +1,4 @@
-<!-- Archivo que permite realizar la conexion a 
-la BD -->
+<!-- Archivo que permite realizar la conexion a la BD -->
 <?php
 class Conexion
 {

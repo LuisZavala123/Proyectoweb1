@@ -17,11 +17,17 @@
     
   <div id="cuerpo">
   <?php
-  $lista = $dao->obtenerTodos();
+  if (isset($_POST["Busqueda"])) {
+    $lista = $dao->Buscar($_POST["Busqueda"]);
+  }else{
+    $lista = $dao->obtenerTodos();
+  }
+  
   if($lista != null){
     foreach ($lista as $valor) {
-    ?>
-      <br>
+
+  
+    <br>
     <div class="row justify-content-md-center">
           <div class="col-md-4">
             <div class="card rounded" style="width: 18rem;">
@@ -30,7 +36,7 @@
                   <h5 class="card-title text-white"><?= $valor->Titulo?></h5>
                   <p class="card-text "><?= $valor->Descripcion?></p>
                   <button onclicK="Mostrar()" class="btn btn-info text-white rounded">Mostrar</button>
-                </div>
+
             </div>
           </div>
       </div>
