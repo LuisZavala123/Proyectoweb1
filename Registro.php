@@ -28,9 +28,9 @@
 				      $obj->EsEmpleado= $us->EsEmpleado;
 
 
-              echo json_encode($obj);
+              
             if ($dao->agregar($obj)!=0) {
-              echo 123;
+              
               header('Location: index.php');
                 die();
             }

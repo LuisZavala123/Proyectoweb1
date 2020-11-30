@@ -128,7 +128,7 @@ class LibroDao
             $this->conectar();
             
 			$sentenciaSQL = $this->conexion->prepare("SELECT ID Clave, Titulo Titulo, Descripcion Descripcion,
-                                            Precio Precio, Stock Stock 
+                                            Precio Precio, Stock Stock,Foto Foto 
 											FROM Libro 
 											WHERE Titulo LIKE '%?%'"); /*Se arma la sentencia sql para seleccionar todos los registros de la base de datos*/
 			$sentenciaSQL->execute([$Titulo]);/*Se ejecuta la sentencia sql, retorna un cursor el producto a buscar*/
@@ -142,7 +142,7 @@ class LibroDao
 	            $obj->Descripcion = $fila->Descripcion;
 	            $obj->Precio = $fila->Precio;
 	            $obj->Stock = $fila->Stock;
-                $obj->Foto = $this->obtenerFotos($fila->Clave)[0];
+                $obj->Foto = $fila->Foto;
                 
 			
 			return $obj;

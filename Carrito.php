@@ -14,6 +14,8 @@
     
     <?php
         include "nav.php";
+        require_once "DAOS/LibroDao.php";
+        $dao=new UsuarioDao();
     ?> 
   
       <!--BODY-->

@@ -26,7 +26,7 @@
   if($lista != null){
     foreach ($lista as $valor) {
 
-  
+ ?> 
     <br>
     <div class="row justify-content-md-center">
           <div class="col-md-4">
@@ -35,10 +35,11 @@
                 <div class="card-body bg-success rounded">
                   <h5 class="card-title text-white"><?= $valor->Titulo?></h5>
                   <p class="card-text "><?= $valor->Descripcion?></p>
-                  <button onclicK="Mostrar()" class="btn btn-info text-white rounded">Mostrar</button>
+                  <button onclick="Mostrar()" class="btn btn-info text-white rounded">Mostrar</button>
 
             </div>
           </div>
+      </div>
       </div>
     <?php
       }

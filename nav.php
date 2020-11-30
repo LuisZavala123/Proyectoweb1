@@ -12,7 +12,7 @@
             ?>
             <a href="Carrito.php">Carrito</a>
             <a href="perfil.php">Cuenta</a>
-            <a href="lista_Libros.php.php">Cuenta</a>
+            <a href="lista_Libros.php">Libros</a>
             <?php
             }
             ?>
