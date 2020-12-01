@@ -2,29 +2,24 @@
 class ModeloPago{
     public $ID;
     public $IDUsuario;
-    public $IDCarrito;
-    public $Metodo;
     public $Monto;
+    public $Total;
     public $Fecha;
 
     function __construct(){}
-    function __construct1($ID,$IDUsuario,$IDCarrito,
-                            $Metodo,$Monto,$Fecha){
+    function __construct1($ID,$IDUsuario,
+                            $Monto,$Total,$Fecha){
         $this->$ID=$ID;
         $this->$IDUsuario=$IDUsuario;
-        $this->$IDCarrito=$IDCarrito;
-        $this->$Metodo=$Metodo;
+        $this->$Total=$Total;
         $this->$Monto=$Monto;
-        $this->$Cantidad=$Cantidad;
         $this->$Fecha=$Fecha;
     }
-    function __construct2($IDUsuario,$IDCarrito,
-                            $Metodo,$Monto,$Fecha){
+    function __construct2($IDUsuario,
+                            $Monto,$Total,$Fecha){
         $this->$IDUsuario=$IDUsuario;
-        $this->$IDCarrito=$IDCarrito;
-        $this->$Metodo=$Metodo;
+        $this->$Total=$Total;
         $this->$Monto=$Monto;
-        $this->$Cantidad=$Cantidad;
         $this->$Fecha=$Fecha;
     }
 }

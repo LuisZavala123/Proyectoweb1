@@ -14,8 +14,36 @@
     
     <?php
         include "nav.php";
-        require_once "DAOS/LibroDao.php";
-        $dao=new UsuarioDao();
+        
+
+        if(isset($_GET["w1"])){
+            require_once "DAOS/PagoDao.php";
+            $daop=new PagoDao();
+            $us =json_decode($_GET["w1"]);
+
+              $obj = new ModeloPago();
+	            $obj->IDUsuario = $us->IDUsuario;
+	            $obj->Total = $us->Total;
+	            $obj->Monto = $us->Monto;
+				$obj->Fecha = $us->Fecha;
+
+
+              
+            if ($daop->agregar($obj)!=0) {
+                require_once "DAOS/UsuarioDao.php";
+                $daou=new UsuarioDao();
+                $daou->eliminardelCarrito($obj->IDUsuario);
+              header('Location: index.php');
+                die();
+            }
+        }
+
+        if(isset($_GET["w2"])){
+            require_once "DAOS/UsuarioDao.php";
+            $daou=new UsuarioDao();
+            $daou->eliminardelCarrito(($_GET["w2"]);
+            
+        }
     ?> 
   
       <!--BODY-->
@@ -42,5 +70,8 @@
     <script src="fontawesome/js/all.min.js"></script>
     <script src="js/bootstrapValidator.js"></script>
     <script src="js/Carrito.js"></script>
+    <?php
+        include "js/Carritojs.php";
+    ?> 
     <script src="js/navs.js"></script>
 </html>

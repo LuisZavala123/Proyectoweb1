@@ -1,77 +1,53 @@
-var actual = JSON.parse(localStorage.getItem("Actual"));
+<script>
+total=0;
 $(document).ready(function(){
+
+    <?php
+        require_once "DAOS/UsuarioDao.php";
+        $daou=new UsuarioDao();
+        
+    ?> 
+
+
     llenarTabla();
 
     $("#btnComprar").click(function(){
             
-        pagos=obtenerPagos();
-
+        let f = new Date();
         let obj={};
 
+        obj.IDUsuario=<?= $_SESSION["ID"];?>;
         obj.monto=$("#txtTotal").val();
-        obj.metodo="";
-        obj.total=3;
-        obj.fecha="";
+        obj.total=total;
+        obj.fecha=f.getFullYear( + "-" + (f.getMonth() +1) + "-" + f.getDate());
 
-        pagos.push(obj);
-
-        localStorage.removeItem('Carrito');
-
-        localStorage.setItem("Pagos",JSON.stringify(pagos));
-        $('#tblCompra').DataTable().clear().rows.add(obtenerCarrito()).draw();
+        window.location.href = window.location.href+ "?w1="+ JSON.stringify(obj);
     });
 });
 
 function Eliminar(id){
-  let carrito = obtenerCarrito();
-        for (let index = 0; index < carrito.length; index++) {
-            if (carrito[index].id==id) {
-                carrito.splice(index,index);
-            }
-        }
-        localStorage.setItem("Carrito",JSON.stringify(carrito));
-        $('#tblCompra').DataTable().clear().rows.add(obtenerCarrito()).draw();
+    window.location.href = window.location.href+ "?w2="+ id;
 }
 
-function obtenerCarrito(){
-    let lista=[];
-    if(localStorage.getItem("Carrito")!=null){
-        lista=JSON.parse(localStorage.getItem("Carrito"));
-    }
-    return lista;
-}
 
-function obtenerPagos(){
-    let lista=[];
-    let listam=[];
-    if(localStorage.getItem("Pagos")!=null){
-        listam=JSON.parse(localStorage.getItem("Pagos"));
-    }
-    for (let index = 0; index < listam.length; index++) {
-        if (listam[index].id==actual) {
-            lista.push(listam[index]);
-        }
-        
-    }
-    return lista;
-}
 
 function llenarTabla(){
-    let lista=[];
-    lista=obtenerCarrito();
+    
+    let lista=<?= $daou->obtenerCarrito($_SESSION["ID"]);?>;
+    
+    for(i=0;i<lista.length;i++){
+        total+=lista[i].Precio;
+    }
+    $("#txtTotal").val(total);
     let con =0;
     let idTabla='#tblCompra';
     $('#tblCompra').DataTable({
         data: lista,
         columns:[
-            {title:"Producto", data:"producto"},
-            {title:"Cantidad", data:null,render: function (data, type, row){
-                return '<input type="text" id="txtCantidad'+data.cantidad+'" name="txtCantidad'+data.cantidad+'" value='+data.cantidad+'>';
-            }
-            },
+            {title:"Libro", data:"Libro"},
             {title:"Precio", data:"Precio"},
             {title:"", data:null,render: function (data, type, row){
-                return '<button type="button" onclick="Eliminar('+data.id+')" class="btn btn-danger">Eliminar</button>';
+                return '<button type="button" onclick="Eliminar('+data.ID+')" class="btn btn-danger">Eliminar</button>';
             }
         }
         ],
@@ -103,3 +79,4 @@ function llenarTabla(){
         'language': {'url':'http://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json'}
     });
 }
+</script>

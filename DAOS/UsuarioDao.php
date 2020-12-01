@@ -184,6 +184,42 @@ class UsuarioDao
         }
         
 	}
+	public function eliminardelCarrito($id)
+	{
+		try 
+		{
+			$this->conectar();
+            
+            $sentenciaSQL = $this->conexion->prepare("DELETE FROM Carrito WHERE ID = ?");			          
+            
+			$sentenciaSQL->execute(array($id));
+            return true;
+		} catch (Exception $e) 
+		{
+            return false;
+		}finally{
+            Conexion::cerrarConexion();
+        }
+        
+	}
+	public function eliminarCarrito($id)
+	{
+		try 
+		{
+			$this->conectar();
+            
+            $sentenciaSQL = $this->conexion->prepare("DELETE FROM Carrito WHERE IDUsuario = ?");			          
+            
+			$sentenciaSQL->execute(array($id));
+            return true;
+		} catch (Exception $e) 
+		{
+            return false;
+		}finally{
+            Conexion::cerrarConexion();
+        }
+        
+	}
 
 	//Función para editar al registro de acuerdo al objeto recibido como parámetro
 	public function editar(ModeloUsuario $obj)

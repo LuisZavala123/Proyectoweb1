@@ -27,8 +27,8 @@ class ProductoDao
 			$lista = array(); /*Se declara una variable de tipo  arreglo que almacenará los registros obtenidos de la BD*/
 
 			$sentenciaSQL = $this->conexion->prepare(
-                "SELECT IDUsuario IDUsuario, IDCarrito IDCarrito,Metodo Metodo,
-                Monto Monto, Cantidad Cantidad 
+                "SELECT ID Clave, IDUsuario IDUsuario, IDCarrito IDCarrito,
+                Monto Monto, Total Total, Fecha Fecha 
                 FROM Pago ;");
             
                 
@@ -38,11 +38,11 @@ class ProductoDao
 			foreach($sentenciaSQL->fetchAll(PDO::FETCH_OBJ) as $fila)
 			{
 				$obj = new ModeloPago();
+				$obj->ID = $fila->IDClave;
                 $obj->IDUsuario = $fila->IDUsuario;
-	            $obj->IDCarrito= $fila->IDCarrito;
-	            $obj->Metodo = $fila->Metodo;
 	            $obj->Monto = $fila->Monto;
-	            $obj->Cantidad = $fila->Cantidad;
+				$obj->Total = $fila->Total;
+				$obj->Fecha = $fila->Fecha;
 				$lista[] = $obj;
 			}
             
@@ -59,49 +59,73 @@ class ProductoDao
     
     
     /*Metodo que obtiene un registro de la base de datos, retorna un objeto */
-	public function obtenerUno($idusuario,$idcarrito)
+	public function obtenerPorUSuario($idusuario)
 	{
 		try
-		{ 
+		{
             $this->conectar();
             
-			$sentenciaSQL = $this->conexion->prepare("SELECT IDUsuario IDUsuario, IDCarrito IDCarrito,Metodo Metodo,
-                                            Monto Monto, Cantidad Cantidad   
-											FROM Pago  
-											WHERE IDUsuario=? and IDCarrito = ?"); /*Se arma la sentencia sql para seleccionar todos los registros de la base de datos*/
-			$sentenciaSQL->execute([$idusuario,$idcarrito]);/*Se ejecuta la sentencia sql, retorna un cursor el producto a buscar*/
+			$lista = array(); /*Se declara una variable de tipo  arreglo que almacenará los registros obtenidos de la BD*/
+
+			$sentenciaSQL = $this->conexion->prepare(
+                "SELECT ID Clave, IDUsuario IDUsuario, IDCarrito IDCarrito,
+                Monto Monto, Total Total, Fecha Fecha 
+                FROM Pago where IDUsuario = ?;");
             
-            /*Obtiene los datos con la forma de un objeto*/
-			$fila=$sentenciaSQL->fetch(PDO::FETCH_OBJ);
-			
-                $obj = new ModeloPago();
-                $obj->IDUsuario = $fila->IDUsuario;
-                $obj->IDCarrito= $fila->IDCarrito;
-                $obj->Metodo = $fila->Metodo;
-                $obj->Monto = $fila->Monto;
-                $obj->Cantidad = $fila->Cantidad;
                 
-			
-			return $obj;
+			$sentenciaSQL->execute($idusuario);/*Se ejecuta la sentencia sql, retorna un cursor con todos los elementos*/
+            
+            /*Se recorre el cursor para obtener los datos de la forma de arreglo de objetos*/
+			foreach($sentenciaSQL->fetchAll(PDO::FETCH_OBJ) as $fila)
+			{
+				$obj = new ModeloPago();
+				$obj->ID = $fila->IDClave;
+                $obj->IDUsuario = $fila->IDUsuario;
+	            $obj->Monto = $fila->Monto;
+				$obj->Total = $fila->Total;
+				$obj->Fecha = $fila->Fecha;
+				$lista[] = $obj;
+			}
+            
+			return $lista;
 		}
 		catch(Exception $e){
-            //echo $e->getMessage();
-            return null;
+			echo $e->getMessage();
+			return null;
 		}finally{
             Conexion::cerrarConexion();
         }
 	}
     
     //Elimina el registro con el id indicado como parámetro
-	public function eliminar($idusuario,$idcarrito)
+	public function eliminar($id)
 	{
 		try 
 		{
 			$this->conectar();
             
-            $sentenciaSQL = $this->conexion->prepare("DELETE FROM Pago WHERE IDUsuario = ? and IDCarrito = ?");			          
+            $sentenciaSQL = $this->conexion->prepare("DELETE FROM Pago WHERE ID = ?");			          
             
-			$sentenciaSQL->execute(array($idusuario,$idcarrito));
+			$sentenciaSQL->execute(array($id));
+            return true;
+		} catch (Exception $e) 
+		{
+            return false;
+		}finally{
+            Conexion::cerrarConexion();
+        }
+        
+	}
+
+	public function eliminarPorusuario($id)
+	{
+		try 
+		{
+			$this->conectar();
+            
+            $sentenciaSQL = $this->conexion->prepare("DELETE FROM Pago WHERE IDUsuario = ? ");			          
+            
+			$sentenciaSQL->execute(array($id));
             return true;
 		} catch (Exception $e) 
 		{
@@ -117,24 +141,21 @@ class ProductoDao
 	{
 		try 
 		{
-			$sql = "UPDATE Pago SET 
+			$sql = "UPDATE Pago SET
                     IDUsuario = ?,
-                    IDCarrito = ?,
-                    Metodo = ?,
-					Monto = ?,
-					Cantidad = ?,
+					Total = ?,
+					Monto= ?,
                     Fecha = ? 
-				    WHERE IDUsuario = ? and IDCarrito = ?";
+				    WHERE ID = ?";
 			$this->conectar();
 			
             $sentenciaSQL = $this->conexion->prepare($sql);			          
 			$sentenciaSQL->execute(
 				array($obj->IDUsuario,
-	                $obj->IDCarrito,
-	                $obj->Metodo,
+	                $obj->Total,
 	                $obj->Monto,
-                    $obj->Cantidad,
-                    $obj->Fecha));
+                    $obj->Fecha,
+                    $obj->ID));
             return true;
 		} catch (Exception $e){
 			echo $e->getMessage();
@@ -151,19 +172,18 @@ class ProductoDao
 		try 
 		{
 
-            $sql = "INSERT INTO Pago (IDUsuario, IDCarrito, Metodo, Monto, Cantidad, Fecha)
-			 values(?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO Pago (ID,IDUsuario, Monto, Total, Fecha)
+			 values(?, ?, ?, ?, ?)";
             
             $this->conectar();
             $this->conexion->prepare($sql)
                  ->execute(
-                array($obj->IDUsuario,
-                    $obj->IDCarrito,
-                    $obj->Metodo,
+                array($obj->ID,
+                    $obj->IDUsuario,
                     $obj->Monto,
-                    $obj->Cantidad,
+                    $obj->Total,
                     $obj->Fecha));
-            $clave=$this->conexion->lastInsertId();
+            $clave=1;
             return $clave;
 		} catch (Exception $e){
 			//echo $e->getMessage();
