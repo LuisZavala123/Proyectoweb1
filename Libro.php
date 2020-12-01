@@ -17,6 +17,7 @@
 	require_once "DAOS/LibroDao.php";
 	$libro=null;
 	$deseado=null;
+	$carrito=null;
 	//La función empty nos ayuda a verificar si una variable esta
 	//vacía (sin elementos o sin datos)
 	if (!empty($_POST)) { //Se recibieron datos por post
@@ -45,7 +46,7 @@
 				$deseado->IDUsuario=$_POST['IdUsuario'];
 				$deseado->Libro=$_POST['txtTitulo'];
 			
-			if(isset($_POST["IdUsuario"]) && isset($_POST["txtTitulo"]) ){ //Agregar a deseados
+			if(isset($_POST["IdUsuario"]) && isset($_POST["txtTitulo"]) && !isset($_POST["precio"])){ //Agregar a deseados
                 if($dao->agregarADeseados($deseado)){
                     session_start();
                     $_SESSION["msg"]="Se agrego el libro a deseados";
@@ -55,19 +56,26 @@
                 }else{
 					$msgError="No se ha podido agregar a deseados, intenta más tarde";
                 }
-			}else{ //Agregar
-                    if($dao->agregar($libro)){
-                        session_start();
-                        $_SESSION["msg"]="Libro almacenado con éxito";
-                        $_SESSION["tipoMsg"]=1; //Mensaje de éxito
-                        header("Location: lista_Libros.php");
-                        $msgCorrecto="Se agregpo correctamente el libro";
-                        exit;
-                    }else{
-                        $msgError="No se ha podido guardar, intenta más tarde";
+			}else{ //Agregar a carrito
+				require_once "modelos/ModeloCarrito.php";
+				require_once "DAOS/CarritoDao.php";
+				$dao=new CarritoDao();
+				$carrito=new ModeloCarrito();
+				$carrito->IDUsuario=1;
+				$carrito->IDLibro=$_POST['clave'];
+				$carrito->Libro=$_POST['txtTitulo'];
+				$carrito->Precio=$_POST['precio'];
+				var_dump($carrito);
+                if($dao->agregarACarrito($carrito)){
+                    session_start();
+                    $_SESSION["msg"]="Libro almacenado con éxito";
+                    $_SESSION["tipoMsg"]=1; //Mensaje de éxito
+                    header("Location: index.php");
+                    exit;
+                }else{
+                        $msgError="No se ha podido agregar al carrito, intenta más tarde";
                     }
             }
-	
 		}	
 	}else{
         $msgError="Los datos no son válidos: <br> $validacion";
@@ -129,16 +137,17 @@
 					</div>
 					
 					<input type="text" name="IdUsuario" value="<?=1?>" class="form-control d-none"><!--Cargar el ID del usuario-->
+					<input type="text" name="clave" value="<?=$libro->ID?>" class="form-control d-none"><!--Cargar la clave del libro-->
 					<div class="col-md-7">
 						<a href="index.php" class="btn bg-secondary text-white"><i class="fas fa-arrow-alt-circle-left"></i> Volver</a>
 						<div class="btn-group cart">
-							<button name="clave" value="<?=$libro->ID?>" type="submit" id="btnAgregar" class="btn btn-success">
+							<button name="precio" value="<?=$libro->Precio?>" type="submit" id="btnAgregar" class="btn btn-success">
 								<i class="fas fa-cart-plus"></i>
 								Agregar al carrito 
 							</button>
 						</div>
 						<div class="btn-group wishlist">
-							<button name="clave" value="<?=$libro->ID?>" type="submit" id="btnDeseados" class="btn btn-danger">
+							<button  type="submit" id="btnDeseados" class="btn btn-danger">
 								<i class="fas fa-cart-arrow-down"></i>
 								Agregar a deseados
 							</button>

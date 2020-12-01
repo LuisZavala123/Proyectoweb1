@@ -14,7 +14,6 @@
     
     <?php
         include "nav.php";
-        
 
         if(isset($_GET["w1"])){
             require_once "DAOS/PagoDao.php";
