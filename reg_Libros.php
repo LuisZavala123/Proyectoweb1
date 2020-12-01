@@ -94,7 +94,6 @@
                         $msgError="No se ha podido editar, intenta más tarde";
                     }
                 }else{ //Agregar
-                    var_dump($libro);
                     if($dao->agregar($libro)){
                         session_start();
                         $_SESSION["msg"]="Libro almacenado con éxito";

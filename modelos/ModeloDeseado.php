@@ -1,5 +1,5 @@
 <?php
-class ModeloCarrito{
+class ModeloDeseado{
     public $ID;
     public $IDUsuario;
     public $IDLibro;

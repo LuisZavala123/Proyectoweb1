@@ -28,19 +28,42 @@
 
  ?> 
     <br>
-    <div class="row justify-content-md-center">
-          <div class="col-md-4">
-            <div class="card rounded" style="width: 18rem;">
-                <img class="card-img-top rounded" src="<?=$valor->Foto?>" alt="imagen">
-                <div class="card-body bg-success rounded">
-                  <h5 class="card-title text-white"><?= $valor->Titulo?></h5>
-                  <p class="card-text "><?= $valor->Descripcion?></p>
-                  <button onclick="Mostrar()" class="btn btn-info text-white rounded">Mostrar</button>
-
+    <div class="container">	
+			<div class="col-md-12">
+				<div class="card mb-3 w-100" >
+					<div class="card-header h2 text-right">
+						Acerca de <?=$valor->Titulo?>
             </div>
+              <div class="row no-gutters">
+                <div class="col-md-4">
+                  <img src="<?=$valor->Foto?>" class="card-img  px-3 py-3 rounded-pill" alt="Portada del libro"><!--Cargar portada del libro-->
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <label for="txtTitulo" class="h2" >Titulo: </label> <br>
+                    <input type="text" id="txtTitulo" name="txtTitulo" value="<?=$valor->Titulo?>" 
+                      class="form-control-plaintext font-weight-normal" placeholder="<?=$valor->Titulo?>"><!--Cargar titulo del libro-->
+                    <label for="txtDescripcion" class="h3" >Descripcion: </label> <br>
+                    <p class="card-text display-5" id="txtDescripcion"><!--Cargar la Descripcion del libro-->	
+                      <?=$valor->Descripcion?> 
+                    </p>
+                    <input type="text" name="IdUsuario" value="<?=1?>" class="form-control d-none"><!--Cargar el ID del usuario-->
+                      <div class="row ">
+                        <div class="col lign-self-end">
+                          <form action="Libro.php" method="POST">
+                            <button type="submit" name="clave" value="<?=$valor->ID?>" class="btn btn-primary">Mostrar</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
           </div>
-      </div>
-      </div>
+			</div> 
+    </div>
     <?php
       }
     }
