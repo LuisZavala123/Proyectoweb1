@@ -25,7 +25,7 @@ $(document).ready(function(){
                 <?php
                 $_SESSION["Correcto"]="si";
                 ?>
-                window.location.href = window.location.href + "?w1=" + usuarios[num].Nombre + "&w2=" + usuarios[num].EsEmpleado;
+                window.location.href = window.location.href + "?w1=" + usuarios[num].Nombre + "&w2=" + usuarios[num].EsEmpleado+ "&w3=" + usuarios[num].ID;
                 
             }
         }
