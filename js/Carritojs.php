@@ -1,5 +1,6 @@
 <script>
 total=0;
+Cantidad=0;
 $(document).ready(function(){
 
     <?php
@@ -38,6 +39,7 @@ function llenarTabla(){
     for(i=0;i<lista.length;i++){
         total+=lista[i].Precio;
     }
+    Cantidad=lista.length;
     $("#txtTotal").val(total);
     let con =0;
     let idTabla='#tblCompra';
