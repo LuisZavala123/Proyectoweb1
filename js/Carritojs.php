@@ -1,5 +1,6 @@
 <script>
 total=0;
+Cantidad=0;
 $(document).ready(function(){
 
     <?php
@@ -18,7 +19,7 @@ $(document).ready(function(){
 
         obj.IDUsuario=<?= $_SESSION["ID"];?>;
         obj.monto=$("#txtTotal").val();
-        obj.total=total;
+        obj.total=Cantidad;
         obj.fecha=f.getFullYear( + "-" + (f.getMonth() +1) + "-" + f.getDate());
 
         window.location.href = window.location.href+ "?w1="+ JSON.stringify(obj);
@@ -38,6 +39,7 @@ function llenarTabla(){
     for(i=0;i<lista.length;i++){
         total+=lista[i].Precio;
     }
+    Cantidad=lista.length;
     $("#txtTotal").val(total);
     let con =0;
     let idTabla='#tblCompra';
