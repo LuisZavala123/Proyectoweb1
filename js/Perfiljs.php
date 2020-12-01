@@ -1,52 +1,33 @@
-var actual = JSON.parse(localStorage.getItem("Actual"));
-var user ={};
+<script>
 $(document).ready(function(){
-    
-    usuarios =obtenerUsuarios();
-
-    for (let index = 0; index < usuarios.length; index++) {
-        if (usuarios[index].id==actual)  {
-            user=usuarios[index];
-        }
-    }
 
     llenarTabla();
 
-    $("#txtNombre").val(user.nombre);
-    $("#txtUsuario").val(user.usuario);
-    $("#txtEmail").val(user.email);
-    $("#txtDir").val(user.direccion);
-
-
     $('#btnActualisarP').click(function(){
-        usuarios = obtenerUsuarios();
+        
 
 
         
         Us = $('#txtUsuario').val();
         nom = $('#txtNombre').val();
-        email = $('#txtEmail').val();
         dir = $('#txtDir').val();
 
 
         $("#frmDatos").data('bootstrapValidator').validate();
             if($("#frmDatos").data('bootstrapValidator').isValid()){
-                for (let index = 0; index < usuarios.length; index++) {
-                    if (usuarios[index].id==actual)  {
-                        usuarios[index].nombre=nom;
-                        usuarios[index].usuario=Us;
-                        usuarios[index].email=email;
-                        usuarios[index].direccion=dir;
-                    }
-                }
-                localStorage.setItem("Usuarios",JSON.stringify(usuarios));
+                let obj={};
+
+                obj.Usuario=Us;
+                obj.Nombre=nom;
+                obj.Direccion=dir;
+
+                window.location.href = window.location.href+ "?w1="+ JSON.stringify(obj);
 
         }
 
     });
 
     $('#btnActualisarC').click(function(){
-        usuarios = obtenerUsuarios();
 
 
         
@@ -57,22 +38,12 @@ $(document).ready(function(){
 
         $("#frmCon").data('bootstrapValidator').validate();
             if($("#frmCon").data('bootstrapValidator').isValid()){
-                let pos =0;
-                for (let index = 0; index < usuarios.length; index++) {
-                    if (usuarios[index].id==actual)  {
-                        pos = index;
-                    }
-                }
+                
 
-                if (usuarios[pos].pass==Passold&&Passold!=Pass1&&Pass1==Pass2) {
-                    usuarios[pos].pass=Pass1;
-                    localStorage.setItem("Usuarios",JSON.stringify(usuarios));
-                } else if(Passold==Pass1){
-                    
-                }else if(Pass2!=Pass1){
-                    
-                }else{
-
+                if (Passold!=Pass1&&Pass1==Pass2) {
+                    let obj={};
+                obj.Password=Pass1;
+                    window.location.href = window.location.href+ "?w2="+ JSON.stringify(obj);
                 }
                 
 
@@ -166,42 +137,24 @@ $(document).ready(function(){
     });
 });
 
-function obtenerUsuarios(){
-    let lista=[];
-    if(localStorage.getItem("Usuarios")!=null){
-        lista=JSON.parse(localStorage.getItem("Usuarios"));
-    }
-    return lista;
-}
 
-function obtenerPagos(){
-    let lista=[];
-    let listam=[];
-    if(localStorage.getItem("Pagos")!=null){
-        listam=JSON.parse(localStorage.getItem("Pagos"));
-    }
-    for (let index = 0; index < listam.length; index++) {
-        if (listam[index].id==actual) {
-            lista.push(listam[index]);
-        }
-        
-    }
-    return lista;
-}
+
+
 
 function llenarTabla(){
-    let lista=[];
-    lista=obtenerPagos();
+    <?php 
+    require_once "DAOS/PagoDao.php";
+    $daop=new PagoDao();
+    ?>
+    let lista=<?= $daop->obtenerPorUSuario($_SESSION["ID"]);?>;;
 
     let idTabla='#tblPagos';
     $('#tblPagos').DataTable({
         data: lista,
         columns:[
-            
-            {title:"Metodo", data:"metodo"},
             {title:"Monto", data:"Monto"},
-            {title:"Cantidad", data:"cantidad"},
-            {title:"Fecha", data:"fecha"}
+            {title:"Total", data:"Total"},
+            {title:"Fecha", data:"Fecha"}
         ],
         "fnInitComplete": function (oSettings, json) {
             var fila = $(this).children("thead").children("tr").clone();
@@ -231,3 +184,4 @@ function llenarTabla(){
         'language': {'url':'http://cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json'}
     });
 }
+</script>

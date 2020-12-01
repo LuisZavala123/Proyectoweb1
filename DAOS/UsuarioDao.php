@@ -242,7 +242,7 @@ class UsuarioDao
 	                $obj->Nombre,
 	                $obj->Password,
 					$obj->Direccion,
-					$obj->EsEmpleado));
+					$obj->ID));
             return true;
 		} catch (Exception $e){
 			echo $e->getMessage();

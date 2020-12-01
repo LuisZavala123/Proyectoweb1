@@ -14,6 +14,56 @@
 <body>
 <?php
         include "nav.php";
+        require_once "DAOS/UsuarioDao.php";
+            $daou=new UsuarioDao();
+            $usuario;
+            if (isset($_SESSION["ID"]) {
+              $usuario= obtenerUno($_SESSION["ID"]);
+            }
+
+            if (isset($_GET["w1"])) {
+       
+                $us =json_decode($_GET["w1"]);
+    
+                  $obj = new ModeloUsuario();
+                  $obj->ID = $_SESSION["ID"];
+                  $obj->Usuario = $us->Usuario;
+                  $obj->Nombre = $us->Nombre;
+                  $obj->Password = $usuario->Password;
+                  $obj->Direccion = $us->Direccion;
+                  $obj->EsEmpleado= $usuario->EsEmpleado;
+    
+    
+                  
+                if ($dao->editar($obj)!=0) {
+                  
+                  $usuario= obtenerUno($_SESSION["ID"]);
+                }
+              }
+                if (isset($_GET["w2"])) {
+       
+                  $us =json_decode($_GET["w2"]);
+      
+                    $obj = new ModeloUsuario();
+                    $obj->ID = $_SESSION["ID"];
+                    $obj->Usuario = $usuario->Usuario;
+                    $obj->Nombre = $usuario->Nombre;
+                    $obj->Password = $us->Password;
+                    $obj->Direccion = $$usuario->Direccion;
+                    $obj->EsEmpleado= $usuario->EsEmpleado;
+      
+      
+                    
+                  if ($dao->editar($obj)!=0) {
+                    
+                    $usuario= obtenerUno($_SESSION["ID"]);
+                  }
+                }
+                  
+                         
+            
+
+
     ?>
 
     <!--BODY-->
@@ -60,20 +110,17 @@
                   <form id="frmDatos">
                     <div class="form-group">
                       <label for="txtNombre">Nombre</label>
-                      <input type="text" class="form-control" id="txtNombre" name="txtNombre"  placeholder="Ingresa tu nombre completo">             
+                      <input type="text" class="form-control" id="txtNombre" name="txtNombre"  placeholder="Ingresa tu nombre completo" value="<?=$usuario->Nombre;?>">             
                     </div>
                     <div class="form-group">
                       <label for="txtUsuario">Nombre de usuario</label>
-                      <input type="text" class="form-control" id="txtUsuario" name="txtUsuario"  placeholder="Ingresa un nombre de usuario">             
+                      <input type="text" class="form-control" id="txtUsuario" name="txtUsuario"  placeholder="Ingresa un nombre de usuario" value="<?=$usuario->Usuario;?>">             
                     </div>
-                    <div class="form-group">
-                      <label for="txtEmail">Correo Electronico</label>
-                      <input type="text" class="form-control" id="txtEmail" name="txtEmail" placeholder="Ingresa un correo electronico">
-                    </div>
+                    
                     
                     <div class="form-group">
                       <label for="txtDir">Direccion</label>
-                      <input type="text" id="txtDir" name="txtDir" class="form-control" id="Direccion" placeholder="Ingresa tu direccion" >
+                      <input type="text" id="txtDir" name="txtDir" class="form-control" id="Direccion" placeholder="Ingresa tu direccion" value="<?=$usuario->Direccion;?>">
                     </div>
                     
                     <button type="button" id="btnActualisarP" class="btn btn-success">Actualizar perfil</button>
@@ -86,7 +133,7 @@
                   <form id="frmCon">
                     <div class="form-group">
                       <label class="d-block">Cambiar Contraseña</label>
-                      <input type="password" id="passOld" name="passOld" class="form-control" placeholder="Antigua Contraseña">
+                      <input type="password" id="passOld" name="passOld" class="form-control" placeholder="Antigua Contraseña" value="<?=$usuario->Password;?>">
                       <input type="password" id="pass1" name="pass1" class="form-control mt-1" placeholder="Nueva Contraseña">
                       <input type="password" id="pass2" name="pass2" class="form-control mt-1" placeholder="Confirmar Contraseña">
                     </div>
@@ -104,11 +151,6 @@
                   <h6>Informacion de Pago</h6>
                   <hr>
                   <form>
-                    <div class="form-group">
-                      <label class="d-block mb-0">Metodo de pago</label>
-                      <div class="small text-muted mb-3">No has agregado ningun metodo de pago</div>
-                      <button id="btnAgregar" class="btn btn-success" type="button">agregar metodo de pago</button>
-                    </div>
                     <div class="form-group mb-0">
                       <label class="d-block">Historial</label>
                       <div class="border border-gray-500 bg-gray-200 p-3 text-center font-size-sm">

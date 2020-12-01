@@ -14,13 +14,14 @@
         include "nav.php";
 
         
-        if (isset($_GET["w1"])&&isset($_GET["w2"])) {
+        if (isset($_GET["w1"])&&isset($_GET["w2"])&&isset($_GET["w3"])) {
           if (isset($_SESSION["Correcto"])) {
             
               if ($_SESSION["Correcto"]=="si") {
                 $_SESSION["Correcto"]=null;
                 $_SESSION["Usuario"]=$_GET["w1"];
                 $_SESSION["EsEmpleado"]=$_GET["w2"];
+                $_SESSION["ID"]=$_GET["w3"];
                 header('Location: index.php');
                 die();
               }
