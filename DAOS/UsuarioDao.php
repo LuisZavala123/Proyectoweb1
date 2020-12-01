@@ -1,6 +1,7 @@
 <?php
 require_once 'Conexion.php'; /*importa Conexion.php*/
 require_once 'modelos/ModeloUsuario.php'; /*importa el modelo */
+require_once 'modelos/ModeloCarrito.php';
 class UsuarioDao
 {
     

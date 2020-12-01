@@ -1,7 +1,7 @@
 <?php
 require_once 'Conexion.php'; /*importa Conexion.php*/
-require_once '../modelos/ModeloPago.php'; /*importa el modelo */
-class ProductoDao
+require_once 'modelos/ModeloPago.php'; /*importa el modelo */
+class PagoDao
 {
     
 	private $conexion; /*Crea una variable conexion*/
@@ -68,18 +68,18 @@ class ProductoDao
 			$lista = array(); /*Se declara una variable de tipo  arreglo que almacenará los registros obtenidos de la BD*/
 
 			$sentenciaSQL = $this->conexion->prepare(
-                "SELECT ID Clave, IDUsuario IDUsuario, IDCarrito IDCarrito,
-                Monto Monto, Total Total, Fecha Fecha 
-                FROM Pago where IDUsuario = ?;");
+                "SELECT ID Clave, IDUsuario IDUsuario,
+                Monto Monto, Total Total, Fecha Fecha  
+                FROM Pago where IDUsuario = ? ;");
             
                 
-			$sentenciaSQL->execute($idusuario);/*Se ejecuta la sentencia sql, retorna un cursor con todos los elementos*/
+			$sentenciaSQL->execute(array($idusuario));/*Se ejecuta la sentencia sql, retorna un cursor con todos los elementos*/
             
             /*Se recorre el cursor para obtener los datos de la forma de arreglo de objetos*/
 			foreach($sentenciaSQL->fetchAll(PDO::FETCH_OBJ) as $fila)
 			{
 				$obj = new ModeloPago();
-				$obj->ID = $fila->IDClave;
+				$obj->ID = $fila->Clave;
                 $obj->IDUsuario = $fila->IDUsuario;
 	            $obj->Monto = $fila->Monto;
 				$obj->Total = $fila->Total;

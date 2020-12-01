@@ -21,7 +21,7 @@
             $daop=new PagoDao();
             $us =json_decode($_GET["w1"]);
 
-              $obj = new ModeloPago();
+                $obj = new ModeloPago();
 	            $obj->IDUsuario = $us->IDUsuario;
 	            $obj->Total = $us->Total;
 	            $obj->Monto = $us->Monto;
@@ -29,11 +29,11 @@
 
 
               
-            if ($daop->agregar($obj)!=0) {
+            if ($daop->agregar($obj)) {
                 require_once "DAOS/UsuarioDao.php";
                 $daou=new UsuarioDao();
-                $daou->eliminardelCarrito($obj->IDUsuario);
-              header('Location: index.php');
+                $daou->eliminarCarrito($obj->IDUsuario);
+                header('Location: Carrito.php');
                 die();
             }
         }
@@ -41,7 +41,9 @@
         if(isset($_GET["w2"])){
             require_once "DAOS/UsuarioDao.php";
             $daou=new UsuarioDao();
-            $daou->eliminardelCarrito(($_GET["w2"]);
+            $daou->eliminardelCarrito(($_GET["w2"]));
+            header('Location: Carrito.php');
+            die();
             
         }
     ?> 
@@ -69,7 +71,6 @@
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
     <script src="fontawesome/js/all.min.js"></script>
     <script src="js/bootstrapValidator.js"></script>
-    <script src="js/Carrito.js"></script>
     <?php
         include "js/Carritojs.php";
     ?> 

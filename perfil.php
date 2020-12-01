@@ -17,8 +17,8 @@
         require_once "DAOS/UsuarioDao.php";
             $daou=new UsuarioDao();
             $usuario;
-            if (isset($_SESSION["ID"]) {
-              $usuario= obtenerUno($_SESSION["ID"]);
+            if (isset($_SESSION["ID"])) {
+              $usuario= $daou->obtenerUno($_SESSION["ID"]);
             }
 
             if (isset($_GET["w1"])) {
@@ -35,9 +35,9 @@
     
     
                   
-                if ($dao->editar($obj)!=0) {
+                if ($daou->editar($obj)) {
                   
-                  $usuario= obtenerUno($_SESSION["ID"]);
+                  header("Location: perfil.php");
                 }
               }
                 if (isset($_GET["w2"])) {
@@ -49,14 +49,14 @@
                     $obj->Usuario = $usuario->Usuario;
                     $obj->Nombre = $usuario->Nombre;
                     $obj->Password = $us->Password;
-                    $obj->Direccion = $$usuario->Direccion;
+                    $obj->Direccion = $usuario->Direccion;
                     $obj->EsEmpleado= $usuario->EsEmpleado;
       
       
                     
-                  if ($dao->editar($obj)!=0) {
+                  if ($daou->editar($obj)) {
                     
-                    $usuario= obtenerUno($_SESSION["ID"]);
+                    header("Location: perfil.php");
                   }
                 }
                   
@@ -177,6 +177,8 @@
 <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 <script src="fontawesome/js/all.min.js"></script>
 <script src="js/bootstrapValidator.js"></script>
-<script src="js/Perfil.js"></script>
 <script src="js/navs.js"></script>
+<?php
+        include "js/Perfiljs.php";
+?>
 </html>

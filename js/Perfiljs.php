@@ -146,7 +146,7 @@ function llenarTabla(){
     require_once "DAOS/PagoDao.php";
     $daop=new PagoDao();
     ?>
-    let lista=<?= $daop->obtenerPorUSuario($_SESSION["ID"]);?>;;
+    let lista= <?= json_encode($daop->obtenerPorUSuario($_SESSION["ID"]));?>;
 
     let idTabla='#tblPagos';
     $('#tblPagos').DataTable({

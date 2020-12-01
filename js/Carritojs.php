@@ -1,6 +1,6 @@
 <script>
-total=0;
-Cantidad=0;
+var total=0;
+var Cantidad=0;
 $(document).ready(function(){
 
     <?php
@@ -18,9 +18,9 @@ $(document).ready(function(){
         let obj={};
 
         obj.IDUsuario=<?= $_SESSION["ID"];?>;
-        obj.monto=$("#txtTotal").val();
-        obj.total=total;
-        obj.fecha=f.getFullYear( + "-" + (f.getMonth() +1) + "-" + f.getDate());
+        obj.Monto=$("#txtTotal").val();
+        obj.Total=Cantidad;
+        obj.Fecha=f.getFullYear() + "-" + (f.getMonth() +1) + "-" + f.getDate();
 
         window.location.href = window.location.href+ "?w1="+ JSON.stringify(obj);
     });
@@ -34,10 +34,10 @@ function Eliminar(id){
 
 function llenarTabla(){
     
-    let lista=<?= $daou->obtenerCarrito($_SESSION["ID"]);?>;
-    
+    let lista=<?= json_encode($daou->obtenerCarrito($_SESSION["ID"]));?>;
+    total=0;
     for(i=0;i<lista.length;i++){
-        total+=lista[i].Precio;
+        total=total+parseFloat(lista[i].Precio);
     }
     Cantidad=lista.length;
     $("#txtTotal").val(total);
