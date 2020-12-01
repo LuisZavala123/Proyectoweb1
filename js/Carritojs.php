@@ -6,7 +6,6 @@ $(document).ready(function(){
     <?php
         require_once "DAOS/UsuarioDao.php";
         $daou=new UsuarioDao();
-        
     ?> 
 
 
