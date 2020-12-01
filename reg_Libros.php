@@ -77,8 +77,8 @@
                 $libro->Descripcion=$_POST['txtDescripcion'];
                 $libro->Precio=$_POST['txtPrecio'];
                 $libro->Stock=$_POST['txtStock'];
-                $libro->Foto=$fichero_subido;
-                //isset($fichero_subido)?$libro->Foto=$fichero_subido:$libro->Foto='Archivos/prueba/1.png';
+                //$libro->Foto=$fichero_subido;
+                isset($fichero_subido)?$libro->Foto=$fichero_subido:$libro->Foto=$dao->obtenerUno($_POST["clave"])->Foto;
             
             if($validacion==""){
                 //Datos correctos

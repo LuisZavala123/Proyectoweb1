@@ -61,7 +61,7 @@
 				require_once "DAOS/CarritoDao.php";
 				$dao=new CarritoDao();
 				$carrito=new ModeloCarrito();
-				$carrito->IDUsuario=1;
+				$carrito->IDUsuario=$_POST['IdUsuario'];
 				$carrito->IDLibro=$_POST['clave'];
 				$carrito->Libro=$_POST['txtTitulo'];
 				$carrito->Precio=$_POST['precio'];
@@ -136,7 +136,7 @@
 						</div>
 					</div>
 					
-					<input type="text" name="IdUsuario" value="<?=1?>" class="form-control d-none"><!--Cargar el ID del usuario-->
+					<input type="text" name="IdUsuario" value="<?=$_SESSION["ID"]?>" class="form-control d-none"><!--Cargar el ID del usuario-->
 					<input type="text" name="clave" value="<?=$libro->ID?>" class="form-control d-none"><!--Cargar la clave del libro-->
 					<div class="col-md-7">
 						<a href="index.php" class="btn bg-secondary text-white"><i class="fas fa-arrow-alt-circle-left"></i> Volver</a>
