@@ -165,6 +165,40 @@ class UsuarioDao
             Conexion::cerrarConexion();
         }
 	}
+
+	public function obtenerPorNombre($Nombre)
+	{
+		try
+		{ 
+            $this->conectar();
+            
+			$sentenciaSQL = $this->conexion->prepare("SELECT ID Clave, Usuario Usuario, Nombre Nombre,
+                                                Password Password, Direccion Direccion , EsEmpleado EsEmpleado 
+											FROM Usuario 
+											WHERE Usuario=?"); /*Se arma la sentencia sql para seleccionar todos los registros de la base de datos*/
+			$sentenciaSQL->execute([$Nombre]);/*Se ejecuta la sentencia sql, retorna un cursor el producto a buscar*/
+            
+            /*Obtiene los datos con la forma de un objeto*/
+			$fila=$sentenciaSQL->fetch(PDO::FETCH_OBJ);
+			
+                $obj = new ModeloUsuario();
+                $obj->ID = $fila->Clave;
+	            $obj->Usuario = $fila->Usuario;
+	            $obj->Nombre = $fila->Nombre;
+	            $obj->Password = $fila->Password;
+				$obj->Direccion = $fila->Direccion;
+				$obj->EsEmpleado= $fila->EsEmpleado;
+                
+			
+			return $obj;
+		}
+		catch(Exception $e){
+            //echo $e->getMessage();
+            return null;
+		}finally{
+            Conexion::cerrarConexion();
+        }
+	}
     
     //Elimina el registro con el id indicado como parámetro
 	public function eliminar($id)

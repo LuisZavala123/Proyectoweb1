@@ -1,7 +1,9 @@
 <!--HEADER-->
 <header>
           <?php
+          
           session_start();
+          
           ?>
         
         <div id="mySidenav" class="sidenav">

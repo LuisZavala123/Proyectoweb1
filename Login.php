@@ -12,22 +12,48 @@
 <body>
 <?php
         include "nav.php";
-
         
-        if (isset($_GET["w1"])&&isset($_GET["w2"])&&isset($_GET["w3"])) {
-          if (isset($_SESSION["Correcto"])) {
+        
+        if(isset($_POST["txtUser"])&&isset($_POST["txtPass"])) {
+          require_once "DAOS/UsuarioDao.php";
+          $dao=new UsuarioDao();
+          $texto= validar();
+          
+          if ($texto==""){
             
-              if ($_SESSION["Correcto"]=="si") {
-                $_SESSION["Correcto"]=null;
-                $_SESSION["Usuario"]=$_GET["w1"];
-                $_SESSION["EsEmpleado"]=$_GET["w2"];
-                $_SESSION["ID"]=$_GET["w3"];
-                header('Location: index.php');
+            $usuario= $dao->obtenerPorNombre($_POST["txtUser"]);
+            if($usuario!=null&&$usuario->Password==$_POST["txtPass"]){
+              
+                $_SESSION["Usuario"]=$usuario->Nombre;
+                $_SESSION["EsEmpleado"]=$usuario->EsEmpleado;
+                $_SESSION["ID"]=$usuario->ID;
+                header("Location: index.php");
                 die();
-              }
-            
-          }
+            }else{
+              $msgError="Uno o varios de Los datos es incorrecto";
+            }
+          }else{
+              $msgError = $texto;
+            }
+        }else{
+          
         }
+
+        function validar(){
+          $textoValidacion="";
+          if (!isset($_POST["txtUser"]) || strlen(trim($_POST["txtUser"]))<5 ||
+            strlen(trim($_POST["txtUser"]))>100){
+                  $textoValidacion .="<li>Revise el nombre de usuario</li>";
+                }
+          if (!isset($_POST["txtPass"]) || strlen(trim($_POST["txtPass"]))<5 ||
+              strlen(trim($_POST["txtPass"]))>100){
+            $textoValidacion.="<li>Revise la contraseña</li>";
+          
+              }
+              
+          return $textoValidacion;
+        }
+        
     ?>
     <!--BODY-->
     <div class="row Centrar">
@@ -36,7 +62,7 @@
                 <img class="card-img-top rounded userimg" src="img/user.png" alt="imagen">
                 <div class="card-body bg-success rounded">
                   <h5 class="card-title text-white">Login</h5>
-                  <form id="frmCaptura" class="border my-4 p-4">
+                  <form id="frmCaptura" action="Login.php" method="POST" class="border my-4 p-4">
                     <div class="row">
                       <div class="form-group col-12">
                           <input id="txtUser" name="txtUser" type="text" placeholder="Usuario" class="form-control rounded">  
@@ -47,9 +73,14 @@
                       <input id="txtPass" name="txtPass" type="password" placeholder="Contraseña" class="form-control rounded">  
                   </div>
                 </div>
-                <button id="btnAceptar" class="btn btn-info text-white rounded" type="button">Ingresar</button>
+                <button id="btnAceptar" class="btn btn-info text-white rounded" type="submit">Ingresar</button>
                   <br>
                   <a href="#" class="text-white">Recuperar contraseña?</a>
+                  <?php 
+                            if(isset($msgError)){
+                                echo "<div class=\"alert alert-danger\">$msgError</div>";
+                            }
+                        ?>
                 </form>
                   
                 </div>
@@ -62,11 +93,7 @@
 <script src="fontawesome/js/all.min.js"></script>
 <script src="js/bootstrapValidator.js"></script>
 <script src="js/navs.js"></script>
-<?php
-        include "js/Loginjs.php";
-        
-    ?>
-</body>
+
 
 
 </html>
