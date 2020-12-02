@@ -1,6 +1,6 @@
 $(document).ready(function(){
   $('#btnLogin').click(function(){
-    debugger;
+    
     window.location.href='Login.php';
   });
 
